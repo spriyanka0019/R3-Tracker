@@ -5,6 +5,19 @@
     <title>Firestore</title>
      <link rel="stylesheet" href="styles.css">
 
+     
+     <link href= 
+'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css'
+          rel='stylesheet'> 
+      
+    <script src= 
+"https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" > 
+    </script> 
+      
+    <script src= 
+"https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" > 
+    </script> 
+
     <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-analytics.js"></script>
@@ -13,7 +26,8 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 
-    <script type="text/javascript" src="date.js"></script>
+    <script type="text/javascript" src="date.js"></script> 
+
 
     
 <style>
@@ -56,7 +70,7 @@ article {
   padding: 20px;
   width: 20%;
   margin-left:20px;
-  background-color: #fff;
+  background-color:#e0ffff;
   margin-top: 110px;
   height: 700px; /* only for demonstration, should be removed */
 }
@@ -109,17 +123,8 @@ footer {
  
    <section>
     <nav>
-    <h1 align="center">Fleet Tracking</h1>
-    <!-- <input type="text" placeholder="Car ID" id="txtCarID" />
-    <input type="text" placeholder="Trip ID" id="txtTripID" />
-    <input type="text" placeholder="Latitude" id="txtLat" />
-    <input type="text" placeholder="Longitude" id="txtLon" /> -->
-    <!-- <button id="bttAdd" >Add</button> -->
-    <br>
-    <!-- <input type="text" placeholder="Car ID" id="rtxtCarID" />
-    <!-- <input type="text" placeholder="Trip ID" id="rtxtTripID" /> -->
-      <!-- <input type="text" placeholder="Date" id="rtxtTripsDate" />
-    <button id="bttRetrive">Retrive</button> --> 
+    <h1 style="font-family:sans-serif; font-style: italic; padding-left:650px;font-weight: bold" >Fleet Tracking</h1>
+    <br> 
     <script src="index.js"></script>
     <br><br> 
     <!--Google Map-->
@@ -141,10 +146,11 @@ footer {
 
     <article>
         <div>
-       <b>Enter Car ID</b>
+       <!-- <b>Enter Your Car ID</b> -->
+       <p style="font-style: italic;"><b>Enter Your Car ID</b></p>
         <br></br>
         <div>
-        <input type="text" placeholder="CAR ID" id="textcarID" size="10" /> 
+        <input style = "font-style:italic;font-weight:bold" type="text" placeholder="CAR ID" id="textcarID" size="15" /> 
         <button id="bttShowTrips" > >>  </button>
         <br></br>
         <br></br>
@@ -154,14 +160,12 @@ footer {
          </div>
     
        <br></br>
-        <div id="dvTable">
-          <p ><b> <span id='popup'><span> </b></p>
+        <div id="dvTable" style="font-style: italic;">
+           <p ><b> <span id='popup'><span> </b></p>
            <p > SoC: <span id='battery'></span></p>
            <p > Odometer: <span id='odometer'></span></p>
            <p > Distance Covered: <span id='distance'></span></p>
-           <p > EnergyConsumption: <span id='energyconsume'></span></p>
-
-
+           <p > Energy Consumed: <span id='energyconsume'></span></p>
         </div>
 
 

@@ -46,8 +46,7 @@ ShowTripsTaken.addEventListener("click",function(){
 //     });  
 //       });
 
-
-$( function() {
+$(function() {
     // eventDates[ new Date( '01/23/2020' )] = new Date( '01/23/2020' );
     $('#datepicker').datepicker({
         // beforeShowDay: function(date) {
@@ -145,7 +144,8 @@ else{
    })
    }
  }) 
-})})
+})
+})
   
 
   function updateMap(carTrail){
