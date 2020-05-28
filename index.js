@@ -24,12 +24,28 @@ const gMap=document.querySelector("map");
 var firestore = firebase.firestore();
         
 // const locationRef = firestore.collection("locations");//OLD DB
-const locationRef = firestore.collection("CarGPSLocation");
+const locationRef = firestore.collection("Hello");
 
 var i = 0;
 var j = 0;
 var flightPath = [];
 var eventDates = [];
+
+streamSnapshot();
+
+function streamSnapshot() {
+  // [START query_realtime]
+  let query = locationRef.orderBy('ServerTimeStamp','desc');
+
+  let observer = query.onSnapshot(querySnapshot => {
+    console.log(`Received query snapshot of size ${querySnapshot.size}`);
+    // [START_EXCLUDE]
+    // [END_EXCLUDE]
+  }, err => {
+    console.log(`Encountered error: ${err}`);
+  });
+  // [END query_realtime]
+}
 
 
 //Button To Show the Calendar Highlighting TripsTaken on that Date
