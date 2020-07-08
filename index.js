@@ -24,28 +24,28 @@ const gMap=document.querySelector("map");
 var firestore = firebase.firestore();
         
 // const locationRef = firestore.collection("locations");//OLD DB
-const locationRef = firestore.collection("Hello");
+const locationRef = firestore.collection("GPSData");
 
 var i = 0;
 var j = 0;
 var flightPath = [];
 var eventDates = [];
 
-streamSnapshot();
+// streamSnapshot();
 
-function streamSnapshot() {
-  // [START query_realtime]
-  let query = locationRef.orderBy('ServerTimeStamp','desc');
+// function streamSnapshot() {
+//   // [START query_realtime]
+//   let query = locationRef.orderBy('ServerTimeStamp','desc');
 
-  let observer = query.onSnapshot(querySnapshot => {
-    console.log(`Received query snapshot of size ${querySnapshot.size}`);
-    // [START_EXCLUDE]
-    // [END_EXCLUDE]
-  }, err => {
-    console.log(`Encountered error: ${err}`);
-  });
-  // [END query_realtime]
-}
+//   let observer = query.onSnapshot(querySnapshot => {
+//     console.log(`Received query snapshot of size ${querySnapshot.size}`);
+//     // [START_EXCLUDE]
+//     // [END_EXCLUDE]
+//   }, err => {
+//     console.log(`Encountered error: ${err}`);
+//   });
+//   // [END query_realtime]
+// }
 
 
 //Button To Show the Calendar Highlighting TripsTaken on that Date
@@ -87,28 +87,30 @@ $(function() {
   var BatterySOC = [];
   var arr = [];
   var RecentSOC = [];
-  locationRef.where('CarID',"==",rinputTextFieldid.value).where("GPSRenderDate","==",date).orderBy('ServerTimeStamp','desc')
+  var GPSRenderDate = [];
+  var Latitute = [];
+  var Logitude = []; 
+  
+  locationRef.where('CarID',"==",rinputTextFieldid.value).where("GPSRenderDate","==",date).where("GPSLockStatus","==",1).orderBy("ServerTimeStamp",'desc')
   .get().then(snapshot =>{
-
-     document.getElementById('battery').innerHTML =""  
-         document.getElementById('distance').innerHTML = ""
-          document.getElementById('energyconsume').innerHTML =""
-          document.getElementById('odometer').innerHTML =""
+    console.log("function Inside");
+     
+    document.getElementById('battery').innerHTML =""  
+    document.getElementById('distance').innerHTML = ""
+    document.getElementById('energyconsume').innerHTML =""
+    document.getElementById('odometer').innerHTML =""
    
     snapshot.forEach(doc=>{
-        if(!RecentSOC.includes(doc.data().BatterySOC))
-        RecentSOC.push(doc.data().BatterySOC);
+      if(!RecentSOC.includes(doc.data().BatterySOC))
+      RecentSOC.push(doc.data().BatterySOC);
 
-      //  console.log("SoC",doc.data().GPSTime,doc.data().BatterySOC);
-
-        if(!TripCovered.includes(doc.data().DistanceTravelled))
-         TripCovered.push(doc.data().DistanceTravelled);
+      if(!TripCovered.includes(doc.data().DistanceTravelled))
+      TripCovered.push(doc.data().DistanceTravelled);
 
       if(!arr.includes(doc.data().TripID))
       arr.push(doc.data().TripID); 
     }); 
   console.log(("Final Arrray"),"=>",arr ); 
-//  console.log(TripCovered[0],TripCovered[TripCovered.length-1]); 
 
 if(!arr.length==0){
    document.getElementById('popup').innerHTML = ""
@@ -117,9 +119,9 @@ if(!arr.length==0){
 else{
    document.getElementById('popup').innerHTML = "No Data Available"
     document.getElementById('battery').innerHTML ="-"  
-         document.getElementById('distance').innerHTML = "-"
-          document.getElementById('energyconsume').innerHTML ="-"
-          document.getElementById('odometer').innerHTML ="-"
+    document.getElementById('distance').innerHTML = "-"
+    document.getElementById('energyconsume').innerHTML ="-"
+    document.getElementById('odometer').innerHTML ="-"
  }
 
 //Loop for showing trails of the particular date and show calculated distance
@@ -132,7 +134,7 @@ else{
    
   for(j = 0 ;j<arr.length;j++){        
         locationRef.where('CarID','==',rinputTextFieldid.value).where('TripID', '==',arr[j]).
-        where("GPSRenderDate","==",date).orderBy('ServerTimeStamp','desc').get()
+        where("GPSRenderDate","==",date).where("GPSLockStatus",'==',1).orderBy('ServerTimeStamp','desc').get()
         .then(snapshot => {   
         if (snapshot.empty) {
           console.log('No matching documents.');
