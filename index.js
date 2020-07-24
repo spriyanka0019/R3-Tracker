@@ -24,28 +24,27 @@ const gMap=document.querySelector("map");
 var firestore = firebase.firestore();
         
 // const locationRef = firestore.collection("locations");//OLD DB
-const locationRef = firestore.collection("GPSData");
+const locationRef = firestore.collection("DummyGPS");
 
 var i = 0;
 var j = 0;
 var flightPath = [];
 var eventDates = [];
 
-// streamSnapshot();
+ locationRef.where('CarID',"==","StromR3").where("GPSRenderDate","==","12/20/2019").
+ orderBy('BatterySOC')
+  .get().then(snapshot =>{
+    console.log("function Inside");
 
-// function streamSnapshot() {
-//   // [START query_realtime]
-//   let query = locationRef.orderBy('ServerTimeStamp','desc');
-
-//   let observer = query.onSnapshot(querySnapshot => {
-//     console.log(`Received query snapshot of size ${querySnapshot.size}`);
-//     // [START_EXCLUDE]
-//     // [END_EXCLUDE]
-//   }, err => {
-//     console.log(`Encountered error: ${err}`);
-//   });
-//   // [END query_realtime]
-// }
+    snapshot.forEach(doc=>{
+        var data = doc.data();
+        var la = data.GeoPoint.latitude;
+        var lo = data.GeoPoint.longitude;
+        var timestamp = data.ServerTimeStamp;
+        console.log(timestamp,la,lo);
+    }); 
+  });
+ 
 
 
 //Button To Show the Calendar Highlighting TripsTaken on that Date
