@@ -24,19 +24,23 @@ const gMap=document.querySelector("map");
 var firestore = firebase.firestore();
         
 // const locationRef = firestore.collection("locations");//OLD DB
-const locationRef = firestore.collection("DummyGPS");
+const locationRef = firestore.collection("TestData");
 
 var i = 0;
 var j = 0;
 var flightPath = [];
 var eventDates = [];
 
- locationRef.where('CarID',"==","StromR3").where("GPSRenderDate","==","12/20/2019").
- orderBy('BatterySOC')
+
+
+
+
+ locationRef.doc('B827EBDB0AEB').collection('20200724').orderBy("ServerTimeStamp",'desc')
   .get().then(snapshot =>{
     console.log("function Inside");
-
-    snapshot.forEach(doc=>{
+    var name = "23/238/2020".replace(/\//g, "");
+    console.log("Name is ",name);
+  snapshot.forEach(doc=>{
         var data = doc.data();
         var la = data.GeoPoint.latitude;
         var lo = data.GeoPoint.longitude;
@@ -44,6 +48,20 @@ var eventDates = [];
         console.log(timestamp,la,lo);
     }); 
   });
+
+//  locationRef.where('CarID',"==","StromR3").where("GPSRenderDate","==","12/20/2019").
+//  orderBy('BatterySOC')
+//   .get().then(snapshot =>{
+//     console.log("function Inside");
+
+//     snapshot.forEach(doc=>{
+//         var data = doc.data();
+//         var la = data.GeoPoint.latitude;
+//         var lo = data.GeoPoint.longitude;
+//         var timestamp = data.ServerTimeStamp;
+//         console.log(timestamp,la,lo);
+//     }); 
+//   });
  
 
 
@@ -64,6 +82,7 @@ ShowTripsTaken.addEventListener("click",function(){
 $(function() {
     // eventDates[ new Date( '01/23/2020' )] = new Date( '01/23/2020' );
     $('#datepicker').datepicker({
+     
         // beforeShowDay: function(date) {
         //     var highlight = eventDates[date];
         //     if(highlight) {
@@ -72,8 +91,9 @@ $(function() {
         //          return [true, '', ''];
         //     }
         // },
+
    
-  onSelect: function (date) {
+  onSelect: function (name) {
     //Initializing map function to Refresh For every Date Selected
      map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 19.075983, lng: 72.877655},
