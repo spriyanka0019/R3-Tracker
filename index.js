@@ -32,22 +32,35 @@ var flightPath = [];
 var eventDates = [];
 
 
-
-
-
- locationRef.doc('B827EBDB0AEB').collection('20200724').orderBy("ServerTimeStamp",'desc')
+ locationRef.doc('B827EBDB0AEB').collection('Dates').doc('20201912').collection('Dates').where("name","==","jane").orderBy("timestamp",'desc')
   .get().then(snapshot =>{
+    if(snapshot.empty){
+      console.log("No matching documents");
+    }
     console.log("function Inside");
     var name = "23/238/2020".replace(/\//g, "");
     console.log("Name is ",name);
   snapshot.forEach(doc=>{
         var data = doc.data();
-        var la = data.GeoPoint.latitude;
-        var lo = data.GeoPoint.longitude;
-        var timestamp = data.ServerTimeStamp;
-        console.log(timestamp,la,lo);
+        console.log(data.name);
     }); 
   });
+
+
+
+//  locationRef.doc('B827EBDB0AEB').collection('20200724').orderBy("ServerTimeStamp",'desc')
+//   .get().then(snapshot =>{
+//     console.log("function Inside");
+//     var name = "23/238/2020".replace(/\//g, "");
+//     console.log("Name is ",name);
+//   snapshot.forEach(doc=>{
+//         var data = doc.data();
+//         var la = data.GeoPoint.latitude;
+//         var lo = data.GeoPoint.longitude;
+//         var timestamp = data.ServerTimeStamp;
+//         console.log(timestamp,la,lo);
+//     }); 
+//   });
 
 //  locationRef.where('CarID',"==","StromR3").where("GPSRenderDate","==","12/20/2019").
 //  orderBy('BatterySOC')
@@ -184,7 +197,6 @@ else{
 })
 })
   
-
   function updateMap(carTrail){
    flightPath = new google.maps.Polyline({
       path: carTrail,
