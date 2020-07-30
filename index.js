@@ -26,6 +26,7 @@ var firestore = firebase.firestore();
 // const locationRef = firestore.collection("locations");//OLD DB
 const locationRef = firestore.collection("TestData");
 
+
 var i = 0;
 var j = 0;
 var flightPath = [];
